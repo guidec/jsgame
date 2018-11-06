@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <title>First Brick Game w js</title>
+	<meta name="Author" content=""/>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<canvas id="myCanvas" width="480" height="320"></canvas>
+
+
+<script>
+//javascript code goes ere
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var x = canvas.width/2;
+var y = canvas.height-3;
+var dx = .002;
+var dy = -.002;
+
+function draw() {
+    //code to draw
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    console.log('Hi!');
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI*2);
+    ctx.fillStyle = "green";
+    ctx.fill();
+    ctx.closePath();
+    x += dx;
+    y += dy;
+    
+}
+
+setInterval(draw, 1);
+
+    
+</script>
+
+
+</body>
+</html>
+    
