@@ -11,18 +11,36 @@ var color = "black";
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
-    var rightPressed = false;
-    var leftPressed = false;
+var rightPressed = false;
+var leftPressed = false;
+var brickWidth = 30;
+var brickHeight = 20;
+var xBrick = 0;
+var yBrick = 0;
+
+//Review what the hell these mean
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
-  
-function drawBricks(){
-    
+//------------------------------------------------------  
+
+function drawBrick(){
+    ctx.beginPath();
+    ctx.rect(xBrick, yBrick, brickWidth, brickHeight)
+    ctx.fillStyle = "blue";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function layBricks(){
+    while (xBrick < canvas.width){
+        drawBrick();
+        xBrick += brickWidth + 10;
+    }
 }
 
 
 function drawPaddle(){
-    ctx. beginPath();
+    ctx.beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
     ctx.fillStyle = "brown";
     ctx.fill();
@@ -70,6 +88,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
+    layBricks();
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
