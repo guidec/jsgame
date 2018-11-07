@@ -15,7 +15,12 @@ var paddleX = (canvas.width-paddleWidth)/2;
     var leftPressed = false;
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
+  
+function drawBricks(){
     
+}
+
+
 function drawPaddle(){
     ctx. beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
@@ -85,7 +90,7 @@ function draw() {
     
         }
         else {
-            alert("GAME OVER");
+            alert("GAME OVER, you're DEAD");
             document.location.reload();
         }
     }
