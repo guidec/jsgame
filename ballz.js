@@ -13,30 +13,45 @@ var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
-var brickWidth = 30;
-var brickHeight = 20;
-var xBrick = 0;
-var yBrick = 0;
-
+var brickRowCount = 6;
+var brickColumnCount = 16;
+var brickWidth = 16;
+var brickHeight =  10;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 40;
 //Review what the hell these mean
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
 //------------------------------------------------------  
+var bricks = []; //create array to store bricks based on column and row count. 
+    for (var c= 0; c < brickColumnCount; c++) {
+        bricks[c] = [];
+        for (var r = 0; r< brickRowCount; r++) {
+            bricks[c][r] = {x:0, y:0} // initialize new bricks (this will be changed when bricks are drawn)
+        }
+    }
+function drawBricks() {
+    //initialize variables to zero at every pass for clearRect
+    for (var c = 0; c < brickColumnCount; c++) {
+        for (var r = 0; r < brickRowCount; r++) {
+            var xBrick = (c*(brickWidth+brickPadding)+brickOffsetLeft);
+            var yBrick = (r*(brickHeight+brickPadding)+brickOffsetTop);
 
-function drawBrick(){
-    ctx.beginPath();
-    ctx.rect(xBrick, yBrick, brickWidth, brickHeight)
-    ctx.fillStyle = "blue";
-    ctx.fill();
-    ctx.closePath();
-}
-
-function layBricks(){
-    while (xBrick < canvas.width){
-        drawBrick();
-        xBrick += brickWidth + 10;
+            bricks[c][r].x = xBrick;
+            bricks[c][r].y = yBrick;
+            //draw one brick per pass through loop. x and y will get updated every time.
+            ctx.beginPath();
+            ctx.rect(xBrick, yBrick, brickWidth, brickHeight);
+            ctx.fillStyle = "darkblue";
+            ctx.fill();
+            ctx.closePath();
+        }
     }
 }
+
+
+
 
 
 function drawPaddle(){
@@ -88,7 +103,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
-    layBricks();
+    drawBricks();
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
